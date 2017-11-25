@@ -164,3 +164,4 @@ console.log('server up and running', port);
 // });
 // server.listen(3000);
 // console.log('server up and running');
+//https://stackoverflow.com/questions/20089582/how-to-get-url-parameter-in-express-node-js
