@@ -1,0 +1,28 @@
+{
+  "name": "fire_bit",
+  "version": "1.0.0",
+  "description": "convert your http https url to torrent",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "fs": "0.0.1-security",
+    "get-urls": "^7.0.0",
+    "jshint": "^2.9.5",
+    "nodemon": "^1.12.1",
+    "valid-url": "^1.0.9",
+    "webtorrentify-link": "^1.0.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "url",
+    "http",
+    "https",
+    "to",
+    "torrent"
+  ],
+  "author": "Savad",
+  "license": "MIT"
+}

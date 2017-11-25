@@ -1,0 +1,20 @@
+<title> Pedir random </title>
+
+            <script type="text/javascript">
+                function operacion(){
+                        var link = document.getElementById("link").value;
+                        location.href = "http://localhost:3000"+ "/:thelink="+ link;
+                }
+            </script>
+     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">       
+    </head>
+
+    <body>
+            <h1>input url </h1>
+            <form id="forma1"> 
+                <input type="string" id="link"></imput>
+                <input type="button" onClick="operacion()" id="enviar" value="burn"></input>
+            </form>
+    </body>
+
+<html>
