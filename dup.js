@@ -24,15 +24,14 @@ console.log('favicon request recived');
 app.get('*', function(req, res){
     if(req.url==='/'){
   fs.readFile('public/html/index.html', function (err, data) {
-    res.write(data);
-    res.end();
+    res.write(data);  
   });
-}else if (req.url === '/url'){
-  res.status(404).send('what...error 404....');
-}else if (req.url === '/l?thelink='){
-  fs.readFile('public/html/emptyRequest.html', function (err, data) {
-    res.write(data);
-    res.end();
+  }else if (req.url === '/url'){
+    res.status(404).send('what...error 404....');
+  }else if (req.url === '/l?thelink='){
+    fs.readFile('public/html/emptyRequest.html', function (err, data) {
+      res.write(data);
+      res.end();
   });
 }else{
 //---------Reciving Url--------------------
@@ -54,8 +53,16 @@ app.get('*', function(req, res){
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
-         fs.writeFileSync(fileName + '.torrent', buffer);
          console.log('creating the torrent');
+         //-------------------------------------------
+         res.setHeader('Content-Type', 'application/x-bittorrent')
+         res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`)
+         res.setHeader('Cache-Control', 'public, max-age=2592000') // 30 days
+         res.write(buffer);
+         console.log(fileName+'.torrent created')
+         res.end();
+         //-------------------------------------------
+         
       });
     ////////////////////////////////////////////////
   }
