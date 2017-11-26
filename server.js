@@ -26,20 +26,19 @@ app.get('/', function(req, res){
     res.end();
   });
 });
-app.get('/:', function(req, res){
+app.get('/l/:', function(req, res){
   fs.readFile('public/html/emptyRequest.html', function (err, data) {
     res.write(data);
     res.end();
   });
 });
-app.get('/*', function(req, res){
+app.get('/l/:thelink*', function(req, res){
   res.send('what is');
   console.log('app.getUrls',app.getUrls);
   //---------Reciving Url--------------------
-  param = url.parse(req.url, true).query;
-  console.log(req.params);
-  //downloadLink = params.thelink;
-  downloadLink=req.params;
+  // param = url.parse(req.url, true).query;
+  console.log(req.params.thelink);
+  downloadLink=req.params.thelink;
   
   //-----------------------------------------
   //------------checking for valid url-------
@@ -70,10 +69,11 @@ app.get('/*', function(req, res){
   }
 });
 //------------------404--------------
-// app.get('*', function(req, res){
-//   res.send('what...error 404', 404);
-// });
+app.get('*', function(req, res){
+  res.send('what...error 404', 404);
+});
 //------------------------------------
+
 app.listen(port);
 
 console.log('server up and running', port);
