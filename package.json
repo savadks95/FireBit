@@ -2,7 +2,7 @@
   "name": "fire_bit",
   "version": "1.0.0",
   "description": "convert your http https url to torrent",
-  "main": "test.js",
+  "main": "dup.js",
   "dependencies": {
     "express": "^4.16.2",
     "fs": "0.0.1-security",
