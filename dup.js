@@ -23,11 +23,9 @@ console.log('favicon request recived');
 });
 app.get('*', function(req, res){
     if(req.url==='/'){
-  fs.readFile('public/html/index.html', function (err, data) {
+    fs.readFile('public/html/index.html', function (err, data) {
     res.write(data);  
   });
-  }else if (req.url === '/url'){
-    res.status(404).send('what...error 404....');
   }else if (req.url === '/l?thelink='){
     fs.readFile('public/html/emptyRequest.html', function (err, data) {
       res.write(data);
@@ -35,21 +33,21 @@ app.get('*', function(req, res){
   });
 }else{
 //---------Reciving Url--------------------
-  // param = url.parse(req.url, true).query;
   console.log(req.query.thelink);
   downloadLink=req.query.thelink;
-  
   //-----------------------------------------
+
   //------------checking for valid url-------
   if (validUrl.isUri(downloadLink)) {
     console.log('Looks like an URI');
-
     //-----------------------------------------
+
     //----------Extracting filename-------------
     parsed = url.parse(downloadLink);
     fileName = path.basename(parsed.pathname);
     console.log(path.basename(parsed.pathname));
     //-------------------------------------------
+    
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
