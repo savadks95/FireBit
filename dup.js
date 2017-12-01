@@ -53,11 +53,11 @@ app.get('*', function(req, res){
       .then(function (buffer) {
          console.log('creating the torrent');
          //-------------------------------------------
-         res.setHeader('Content-Type', 'application/x-bittorrent')
-         res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`)
-         res.setHeader('Cache-Control', 'public, max-age=2592000') // 30 days
+         res.setHeader('Content-Type', 'application/x-bittorrent');
+         res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`);
+         res.setHeader('Cache-Control', 'public, max-age=2592000'); // 30 days
          res.write(buffer);
-         console.log(fileName+'.torrent created')
+         console.log(fileName+'.torrent created');
          res.end();
          //-------------------------------------------
          
