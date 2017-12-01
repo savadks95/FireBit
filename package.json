@@ -9,6 +9,7 @@
     "get-urls": "^7.0.0",
     "jshint": "^2.9.5",
     "nodemon": "^1.12.1",
+    "remote-file-size": "^3.0.3",
     "valid-url": "^1.0.9",
     "webtorrentify-link": "^1.0.5"
   },
