@@ -52,6 +52,7 @@ app.get('*', function(req, res){
     webtorrentify(downloadLink)
       .then(function (buffer) {
          console.log('creating the torrent');
+         res.send('what is');
          //-------------------------------------------
          res.setHeader('Content-Type', 'application/x-bittorrent')
          res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`)
