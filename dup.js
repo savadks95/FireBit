@@ -54,9 +54,9 @@ app.get('*', function(req, res){
     remote(downloadLink, function(err, o) {
       fileSize = (o/1024)/1024;
       console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
-    }); 
+    //}); 
     //-------------------------------------------
-    if (fileSize === 512)
+    if (fileSize < 501)
     {
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
@@ -67,7 +67,7 @@ app.get('*', function(req, res){
          res.setHeader('Content-Type', 'application/x-bittorrent');
          res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`);
          res.setHeader('Cache-Control', 'public, max-age=2592000'); // 30 days
-         res.write(buffer);
+         res.send(buffer);
          console.log(fileName+'.torrent created');
          res.end();
          //-------------------------------------------
@@ -76,9 +76,10 @@ app.get('*', function(req, res){
     ////////////////////////////////////////////////
     }
     else{
-      Console.log('More than 500 MB');
+      console.log('More than 500 MB');
       res.send("<h5> More than 500 MB or invalid URL <h5>");
     }
+  });
   }
   else {
     console.log('not url');
