@@ -18,7 +18,7 @@ var parsed;
 var param;
 var link;
 var port;
-port = process.env.PORT || 3000;
+port = process.env.PORT || 80;
 
 app.get('/favicon.ico', function(req, res){
 console.log('favicon request recived');
@@ -54,14 +54,14 @@ app.get('*', function(req, res){
     remote(downloadLink, function(err, o) {
       fileSize = (o/1024)/1024;
       console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
-    });
+    }); 
     //-------------------------------------------
     
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
          console.log('creating the torrent');
-         res.send('what is');
+         //res.send('what is');
          //-------------------------------------------
          res.setHeader('Content-Type', 'application/x-bittorrent');
          res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`);
