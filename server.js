@@ -7,10 +7,12 @@ var path          = require("path");
 var validUrl      = require('valid-url');
 var express       = require('express');
 var getUrls       = require('get-urls');
+var remote        = require('remote-file-size');
 var app           = express();
 
 var downloadLink;
 var fileName;
+var fileSize;
 var server;
 var parsed;
 var param;
@@ -41,17 +43,25 @@ app.get('*', function(req, res){
   if (validUrl.isUri(downloadLink)) {
     console.log('Looks like an URI');
     //-----------------------------------------
-
+    
     //----------Extracting filename-------------
     parsed = url.parse(downloadLink);
     fileName = path.basename(parsed.pathname);
     console.log(path.basename(parsed.pathname));
     //-------------------------------------------
     
+    //----------Finding File size----------------
+    remote(downloadLink, function(err, o) {
+      fileSize = (o/1024)/1024;
+      console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
+    });
+    //-------------------------------------------
+    
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
          console.log('creating the torrent');
+         res.send('what is');
          //-------------------------------------------
          res.setHeader('Content-Type', 'application/x-bittorrent');
          res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`);
