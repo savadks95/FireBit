@@ -71,13 +71,12 @@ app.get('*', function(req, res){
          console.log(fileName+'.torrent created');
          res.end();
          //-------------------------------------------
-         
       });
     ////////////////////////////////////////////////
     }
     else{
       console.log('More than 500 MB');
-      res.send("<h5> More than 500 MB or invalid URL <h5>");
+      res.send("<h4> More than 500 MB or invalid URL </h4>");
     }
   });
   }
