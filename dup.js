@@ -56,7 +56,8 @@ app.get('*', function(req, res){
       console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
     }); 
     //-------------------------------------------
-    
+    if (fileSize === 512)
+    {
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
@@ -73,6 +74,11 @@ app.get('*', function(req, res){
          
       });
     ////////////////////////////////////////////////
+    }
+    else{
+      Console.log('More than 500 MB');
+      res.send("<h5> More than 500 MB or invalid URL </h5>");
+    }
   }
   else {
     console.log('not url');
