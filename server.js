@@ -54,8 +54,7 @@ app.get('*', function(req, res){
     //----------Finding File size----------------
     remote(downloadLink, function(err, o) {
       fileSize = (o/1024)/1024;
-      console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
-    //}); 
+      console.log('size of ' + fileName + ' = ' + fileSize+" MB");  
     //-------------------------------------------
     if (fileSize < 501)
     {
