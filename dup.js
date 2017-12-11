@@ -58,6 +58,12 @@ app.get('*', function(req, res){
     //-------------------------------------------
     if (fileSize < 501)
     {
+      {
+        fs.readFile('public/html/sucess.html', function (err, data) {
+          res.write(data);
+          res.end();
+      });
+      }
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {

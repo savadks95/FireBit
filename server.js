@@ -18,16 +18,17 @@ var parsed;
 var param;
 var link;
 var port;
-port = process.env.PORT || 3000;
+port = process.env.PORT || 80;
 
 app.get('/favicon.ico', function(req, res){
 console.log('favicon request recived');
 });
 app.get('*', function(req, res){
     if(req.url==='/'){
-    fs.readFile('public/html/index.html', function (err, data) {
-    res.write(data);  
-  });
+      app.use('/public/html', express.static(path.join(__dirname)));
+  //   fs.readFile('public/html/index.html', function (err, data) {
+  //   res.write(data);  
+  // });
   }else if (req.url === '/l?thelink='){
     fs.readFile('public/html/emptyRequest.html', function (err, data) {
       res.write(data);
@@ -54,25 +55,35 @@ app.get('*', function(req, res){
     remote(downloadLink, function(err, o) {
       fileSize = (o/1024)/1024;
       console.log('size of ' + fileName + ' = ' + fileSize+" MB"); 
-    });
+    //}); 
     //-------------------------------------------
-    
+    if (fileSize < 501)
+    {
+      {
+        app.use('/public/html/sucess.html', express.static(path.join(__dirname)));
+        
+      }
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
          console.log('creating the torrent');
-         res.send('what is');
+         //res.send('what is');
          //-------------------------------------------
          res.setHeader('Content-Type', 'application/x-bittorrent');
          res.setHeader('Content-Disposition', `inline; filename="${fileName}.torrent"`);
          res.setHeader('Cache-Control', 'public, max-age=2592000'); // 30 days
-         res.write(buffer);
+         res.send(buffer);
          console.log(fileName+'.torrent created');
          res.end();
          //-------------------------------------------
-         
       });
     ////////////////////////////////////////////////
+    }
+    else{
+      console.log('More than 500 MB');
+      res.send("<h4> More than 500 MB or invalid URL </h4>");
+    }
+  });
   }
   else {
     console.log('not url');
@@ -90,3 +101,5 @@ app.listen(port);
 console.log('server up and running', port);
    
 //https://stackoverflow.com/questions/20089582/how-to-get-url-parameter-in-express-node-js
+
+//http://www.fullstacktraining.com/articles/how-to-serve-static-files-with-express
