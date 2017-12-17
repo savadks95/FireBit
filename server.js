@@ -25,10 +25,10 @@ console.log('favicon request recived');
 });
 app.get('*', function(req, res){
     if(req.url==='/'){
-      app.use('/public/html', express.static(path.join(__dirname)));
-  //   fs.readFile('public/html/index.html', function (err, data) {
-  //   res.write(data);  
-  // });
+      //app.use('/public/html', express.static(path.join(__dirname)));
+    fs.readFile('public/html/index.html', function (err, data) {
+    res.write(data);  
+  });
   }else if (req.url === '/l?thelink='){
     fs.readFile('public/html/emptyRequest.html', function (err, data) {
       res.write(data);
@@ -58,10 +58,6 @@ app.get('*', function(req, res){
     //-------------------------------------------
     if (fileSize < 501)
     {
-      {
-        app.use('/public/html/sucess.html', express.static(path.join(__dirname)));
-        
-      }
     ///////////////Creating Torrent////////////////////
     webtorrentify(downloadLink)
       .then(function (buffer) {
